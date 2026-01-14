@@ -1,5 +1,6 @@
-name: App Setup 
+name: App Setup
 
+# Test CI workflow - ensures tests run on PRs and blocks bad merges
 # Trigger the workflow on every Pull Request to the main branch
 # This "blocks bad merges" by failing the status check if tests fail [cite: 58]
 on:

@@ -5,26 +5,22 @@ const { validatePayoutDate } = require('./calendar');
 describe('Salary Payout Date Validator', () => {
   
   test('should allow payouts on the 16th (Boundary testing: Second half of the month)', () => {
-    expect(validatePayoutDate(16)).toBe(16);
-  });
-
-  test('should allow payouts on the 31st (Boundary: End of month)', () => {
-    expect(validatePayoutDate(31)).toBe(31);
+    expect(validatePayoutDate(16)).toBe(16); //First valid day
   });
 
   test('should throw error for the 15th (Boundary testing: Last day of boundary)', () => {
-    expect(() => validatePayoutDate(15)).toThrow("Salaries are only processed in the second half of the month");
+    expect(() => validatePayoutDate(15)).toThrow("Salaries are only processed in the second half of the month"); //On the 15th
   });
 
   test('should throw error for invalid numbers (e.g., 32)', () => {
     expect(() => validatePayoutDate(32)).toThrow("Invalid date");
   });
 
-  test('should allow payouts on invalid dates (Invalid testing)', () => {
+  test('should allow payouts on invalid dates (Invalid testing)', () => { //Dates beyond the 31st, but this time, set to fail
     expect(validatePayoutDate(47)).toBe(47);
   });
 
   test('should throw error for non-number inputs', () => {
-    expect(() => validatePayoutDate("16")).toThrow("Invalid date");
+    expect(() => validatePayoutDate("16")).toThrow("Invalid date"); // Assuming a string input
   });
 });

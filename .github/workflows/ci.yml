@@ -1,13 +1,13 @@
 name: App Setup
 
 # Test CI workflow - ensures tests run on PRs and blocks bad merges
-# Trigger the workflow on every Pull Request to the main branch
+# Trigger the workflow on every Pull Request to the master branch
 # This "blocks bad merges" by failing the status check if tests fail [cite: 58]
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   test:
@@ -27,4 +27,4 @@ jobs:
 
       - name: Run Unit Tests
         # If any test fails, the exit code is non-zero, failing the job [cite: 58]
-        run: npm test
+        run: npm test -- --runInBand

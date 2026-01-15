@@ -1,0 +1,30 @@
+name: App Setup
+
+# Test CI workflow - ensures tests run on PRs and blocks bad merges
+# Trigger the workflow on every Pull Request to the main branch
+# This "blocks bad merges" by failing the status check if tests fail [cite: 58]
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Using current LTS for stability
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Unit Tests
+        # If any test fails, the exit code is non-zero, failing the job [cite: 58]
+        run: npm test
